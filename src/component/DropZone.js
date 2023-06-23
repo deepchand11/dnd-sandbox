@@ -1,9 +1,8 @@
 import { getByLabelText } from '@testing-library/react';
 import React from 'react'
 import { useDrop } from "react-dnd";
-import { COMPONENT, SIDEBAR_ITEM } from "./constants";
-import { snapToGrid } from './snapToGrid';
-import template from './templateData';
+import { COMPONENT, SIDEBAR_ITEM } from "../utils/constants";
+import template from '../utils/templateData';
 
 const ACCEPTS = [SIDEBAR_ITEM, COMPONENT];
 
@@ -32,9 +31,7 @@ const DropZone = ({ data, onDrop, components }) => {
             
         let left = Math.round(x + delta.x - canvasX)
         let top = Math.round(y + delta.y - canvasY)
-        console.log(left,top)
-        const [lx, ty] = snapToGrid(left, top);
-        console.log(lx,ty)
+
         itemAttributes = {
             ...itemAttributes,
             x: left,

@@ -1,13 +1,14 @@
 import React, { useCallback } from 'react'
 import { Container, Col, Row, Tabs, Tab } from 'react-bootstrap';
 import { nanoid } from 'nanoid'
-import { COMPONENT, SIDEBAR_ITEM, SIDEBAR_ITEMS } from './constants';
-import DropZone from './DropZone';
-import SideBarItem from './SideBarItem';
-import { useLayoutContext } from './layout.context';
-import { addComponent, addField, updateComponent, updateField } from './layout.actions';
-import CustomTag from './CustomTag';
-import Selectable from './component/Selectable';
+import { COMPONENT, SIDEBAR_ITEM, SIDEBAR_ITEMS } from '../utils/constants';
+import DropZone from '../component/DropZone';
+import SideBarItem from '../component/SideBarItem';
+import { useLayoutContext } from '../context/layout.context';
+import { addComponent, addField, updateComponent, updateField } from '../context/layout.actions';
+import CustomTag from '../component/CustomTag';
+import Selectable from '../component/Selectable';
+import SelectableLayout from '../component/SelectableLayout';
 
 
 const LayoutContainer = () => {
@@ -15,6 +16,7 @@ const LayoutContainer = () => {
     console.log(state)
     const layout = state.layout.homework.homeworkQuestion;
     const components = state.components;
+    // const selectedAttributes = state.attributes;
     const handleDrop = useCallback(
         (dropZone, item) => {
             
@@ -30,11 +32,14 @@ const LayoutContainer = () => {
             
             }
             if (item.type === COMPONENT) {
-                
+                console.log(item)
                 dispatch(updateComponent(item))
                 dispatch(updateField(item.id, item, dropZone.path))
                 
             }
+            // if(Object.keys(selectedAttributes).length > 0){
+            //     dispatch(selectedAttributes(item))
+            // }
 
 
 
@@ -52,7 +57,7 @@ const LayoutContainer = () => {
 {/* <Component key={c1.id} type={c1.type} data={c1.data} /> */}
     const renderingComp = (path) => {
         const comps = Object.values(components).filter(comp => comp.path === path)
-       return comps.map((c1, i) => <CustomTag key={c1.id} type={c1.type} data={c1.data} />)
+       return comps.map((c1, i) => <CustomTag key={c1.id} type={c1.type} ID={c1.id} data={c1.data} />)
     }
 
     return (
@@ -78,13 +83,13 @@ const LayoutContainer = () => {
                                 return (
 
                                     <Tab key={`q-${index}`} eventKey={`Q${index + 1}`} title={`Q${index + 1}`}>
-                                        <Selectable style={{height:"100%"}} locking data={q}>
+                                        <SelectableLayout style={{height:"100%"}} locking data={q}>
                                             <DropZone onDrop={handleDrop} data={{ path: currentPath }} components={components} />
                                             <div className='droppableCanvas'>
                                                 <p className="pagetitle">{q._attributes.questiontitle}</p>
                                                 {renderingComp(currentPath)}
                                             </div>
-                                        </Selectable>
+                                        </SelectableLayout>
                                     </Tab>
 
 
@@ -96,7 +101,7 @@ const LayoutContainer = () => {
                     </div>
                 </Col>
                 <Col sm={3}>Attribute form 
-                {JSON.stringify(state.attributes)}
+                {JSON.stringify(state.attributes, null, 2)}
                 </Col>
             </Row>
         </Container >

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDrag } from 'react-dnd'
-import { COMPONENT } from '../constants'
+import { COMPONENT } from '../utils/constants'
 import Drag from './Drag'
 import ResizeRotate from './ResizeRotate'
 import Selectable from './Selectable'
@@ -23,7 +23,7 @@ function getStyles(size,left, top, isDragging, select) {
   }
 }
 
-const Draggable = ({children, type, data }) => {
+const Draggable = ({children, type, data, ID }) => {
   const {x,y} = data._attributes;
   const defaultState = { width: 'auto', height: 'auto', rotate:0, left:x, top:y  };
   const [size, setSize] = useState(defaultState);
@@ -33,11 +33,15 @@ const Draggable = ({children, type, data }) => {
     item: { id: data._attributes.ID,type: COMPONENT, component: type },
     collect: (monitor) => ({
         isDragging: monitor.isDragging()
-    })
+    }),
+    end(item, monitor) {
+      console.log(data)
+      
+    }
   });
   return (
     <div ref={dragPreview}   className="component" style={getStyles(size,x,y,isDragging,select)}>
-      <Selectable data={data}>
+      <Selectable ID={ID} data={data}>
       {children}
       <Drag ref={drag}/>
       </Selectable>

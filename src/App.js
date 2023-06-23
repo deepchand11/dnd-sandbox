@@ -1,7 +1,6 @@
 import React from 'react';
-import Layout from './Layout';
-import LayoutContainer from './LayoutContainer'
-import {LayoutProvider} from './layout.context'
+import LayoutContainer from './layouts/LayoutContainer'
+import {LayoutProvider} from './context/layout.context'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 

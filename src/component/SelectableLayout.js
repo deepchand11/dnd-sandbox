@@ -4,10 +4,10 @@ import { useLayoutContext, useSelector } from '../context/layout.context';
 import { PencilFill } from 'react-bootstrap-icons';
 import { deselectedAttributes, selectedAttributes } from '../context/layout.actions';
 
-const Selectable = ({ children, locking, data,ID, ...props }) => {
+const SelectableLayout = ({ children, locking, data,ID, ...props }) => {
   const [select, setSelect] = useState(false);
   const { state, dispatch } = useLayoutContext();
-  const attrComp = state.components[ID]
+  const attrComp = state.layout
   // Create a ref that we add to the element for which we want to detect outside clicks
   const ref = useRef();
   const handleClick = useCallback(
@@ -21,19 +21,19 @@ const Selectable = ({ children, locking, data,ID, ...props }) => {
     [],
   )
 
-  // const handleOutSideClick = useCallback(
-  //   (e) => {
-  //     e.stopPropagation();
-  //       setSelect(false);
-  //       dispatch(deselectedAttributes());
+  const handleOutSideClick = useCallback(
+    (e) => {
+      e.stopPropagation();
+        setSelect(false);
+        dispatch(deselectedAttributes());
       
-  //   },
-  //   [dispatch],
-  // )
+    },
+    [dispatch],
+  )
 
   // const elemRef = useOutsideClick(handleOutSideClick)
 
-  // useOnClickOutside(ref, handleOutSideClick);
+  useOnClickOutside(ref, handleOutSideClick);
 
 
 
@@ -50,4 +50,4 @@ const Selectable = ({ children, locking, data,ID, ...props }) => {
   )
 }
 
-export default Selectable
+export default SelectableLayout

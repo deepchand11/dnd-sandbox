@@ -1,4 +1,4 @@
-import template from "./templateData"
+import template from "../utils/templateData"
 
 function layoutReducer(state, action) {
     switch (action.type) {

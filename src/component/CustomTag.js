@@ -1,9 +1,11 @@
 import React from 'react'
-import TextField from './TextField'
+import TextField from './elements/TextField';
 
 const TextInput = () => {
     return (<div>textInput</div>)
 }
+
+
 const Foo = () => {
     return (<div>Foo</div>)
 }
