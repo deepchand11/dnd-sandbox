@@ -1,39 +1,25 @@
-import React, { createRef, useCallback, useEffect, useRef, useState } from 'react';
-import useOnClickOutside from '../hooks/useOnClickOutside';
-import { useLayoutContext, useSelector } from '../context/layout.context';
-import { PencilFill } from 'react-bootstrap-icons';
-import { deselectedAttributes, selectedAttributes } from '../context/layout.actions';
+import React, { useState } from 'react';
+import { useLayoutContext } from '../context/layout.context';
+import {  selectedAttributes } from '../context/layout.actions';
 
-const SelectableLayout = ({ children, locking, data,ID, ...props }) => {
+const SelectableLayout = ({ children, index, ...props }) => {
   const [select, setSelect] = useState(false);
   const { state, dispatch } = useLayoutContext();
-  const attrComp = state.layout
+  const attrComp = state.layout.homework.homeworkQuestion[index];
   // Create a ref that we add to the element for which we want to detect outside clicks
-  const ref = useRef();
-  const handleClick = useCallback(
+
+  const handleClick = 
     (e) => {
       e.stopPropagation();
       setSelect(!select);
-      dispatch(selectedAttributes(attrComp));
-      // dispatch(deselectComponent())
-      console.log(attrComp)
-    },
-    [],
-  )
+      dispatch(selectedAttributes(attrComp._attributes));
+    }
+    
+    
 
-  const handleOutSideClick = useCallback(
-    (e) => {
-      e.stopPropagation();
-        setSelect(false);
-        dispatch(deselectedAttributes());
-      
-    },
-    [dispatch],
-  )
+  
 
-  // const elemRef = useOutsideClick(handleOutSideClick)
-
-  useOnClickOutside(ref, handleOutSideClick);
+  
 
 
 
@@ -41,9 +27,8 @@ const SelectableLayout = ({ children, locking, data,ID, ...props }) => {
 
 
   return (
-    <div ref={ref} className={`selectable ${select ? "active" : ""}`}  {...props} onClick={handleClick}>
-     
-      {/* <button className='editable' onClick={handleClick}> <PencilFill /></button> */}
+    <div className={`selectable ${select ? "active" : ""}`}  {...props} onClick={handleClick}>
+    
       {children}
       
     </div>

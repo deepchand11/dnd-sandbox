@@ -1,5 +1,5 @@
 import { VERSION } from '../utils/constants'
-import template from '../utils/templateData';
+
 const initialData = {
     layout: {
         "homework": {

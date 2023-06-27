@@ -27,17 +27,13 @@ const Draggable = ({children, type, data, ID }) => {
   const {x,y} = data._attributes;
   const defaultState = { width: 'auto', height: 'auto', rotate:0, left:x, top:y  };
   const [size, setSize] = useState(defaultState);
-  const [select, setSelect] = useState(false)
+  const [select, setSelect] = useState(false);
   const [{ isDragging }, drag, dragPreview] = useDrag({
     type: COMPONENT,
     item: { id: data._attributes.ID,type: COMPONENT, component: type },
     collect: (monitor) => ({
         isDragging: monitor.isDragging()
-    }),
-    end(item, monitor) {
-      console.log(data)
-      
-    }
+    })
   });
   return (
     <div ref={dragPreview}   className="component" style={getStyles(size,x,y,isDragging,select)}>

@@ -2,7 +2,6 @@ import { getByLabelText } from '@testing-library/react';
 import React from 'react'
 import { useDrop } from "react-dnd";
 import { COMPONENT, SIDEBAR_ITEM } from "../utils/constants";
-import template from '../utils/templateData';
 
 const ACCEPTS = [SIDEBAR_ITEM, COMPONENT];
 

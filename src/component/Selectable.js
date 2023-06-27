@@ -1,39 +1,26 @@
-import React, { createRef, useCallback, useEffect, useRef, useState } from 'react';
-import useOnClickOutside from '../hooks/useOnClickOutside';
-import { useLayoutContext, useSelector } from '../context/layout.context';
-import { PencilFill } from 'react-bootstrap-icons';
-import { deselectedAttributes, selectedAttributes } from '../context/layout.actions';
+import React, { useCallback } from 'react';
+import { useLayoutContext } from '../context/layout.context';
+import {  selectComponent } from '../context/layout.actions';
 
-const Selectable = ({ children, locking, data,ID, ...props }) => {
-  const [select, setSelect] = useState(false);
+const Selectable = ({ children, locking,comp, data,ID, ...props }) => {
+  
   const { state, dispatch } = useLayoutContext();
-  const attrComp = state.components[ID]
-  // Create a ref that we add to the element for which we want to detect outside clicks
-  const ref = useRef();
+  const selectComp = state.components[ID];
+  
+
   const handleClick = useCallback(
     (e) => {
       e.stopPropagation();
-      setSelect(!select);
-      dispatch(selectedAttributes(attrComp));
-      // dispatch(deselectComponent())
-      console.log(attrComp)
-    },
-    [],
-  )
-
-  // const handleOutSideClick = useCallback(
-  //   (e) => {
-  //     e.stopPropagation();
-  //       setSelect(false);
-  //       dispatch(deselectedAttributes());
       
-  //   },
-  //   [dispatch],
-  // )
+      dispatch(selectComponent(ID));
+    },
+    []
+  );
 
-  // const elemRef = useOutsideClick(handleOutSideClick)
+  
+  
 
-  // useOnClickOutside(ref, handleOutSideClick);
+
 
 
 
@@ -41,9 +28,7 @@ const Selectable = ({ children, locking, data,ID, ...props }) => {
 
 
   return (
-    <div ref={ref} className={`selectable ${select ? "active" : ""}`}  {...props} onClick={handleClick}>
-     
-      {/* <button className='editable' onClick={handleClick}> <PencilFill /></button> */}
+    <div className={`selectable ${selectComp.selected ? "active" : ""}`}  {...props} onClick={handleClick}>
       {children}
       
     </div>

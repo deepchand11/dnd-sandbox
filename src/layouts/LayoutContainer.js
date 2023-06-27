@@ -25,21 +25,17 @@ const LayoutContainer = () => {
                 const comp_id = nanoid(10);
                 item.attributes.ID = comp_id
             
-                dispatch(addComponent(comp_id, item, dropZone.path))
-
-                dispatch(addField(comp_id, item, dropZone.path))
+                dispatch(addComponent(comp_id, item, dropZone.path));
 
             
             }
             if (item.type === COMPONENT) {
-                console.log(item)
-                dispatch(updateComponent(item))
-                dispatch(updateField(item.id, item, dropZone.path))
+                
+                dispatch(updateComponent(item, dropZone.path))
+                
                 
             }
-            // if(Object.keys(selectedAttributes).length > 0){
-            //     dispatch(selectedAttributes(item))
-            // }
+            
 
 
 
@@ -83,7 +79,7 @@ const LayoutContainer = () => {
                                 return (
 
                                     <Tab key={`q-${index}`} eventKey={`Q${index + 1}`} title={`Q${index + 1}`}>
-                                        <SelectableLayout style={{height:"100%"}} locking data={q}>
+                                        <SelectableLayout style={{height:"100%"}} index={index} data={q}>
                                             <DropZone onDrop={handleDrop} data={{ path: currentPath }} components={components} />
                                             <div className='droppableCanvas'>
                                                 <p className="pagetitle">{q._attributes.questiontitle}</p>
@@ -101,7 +97,10 @@ const LayoutContainer = () => {
                     </div>
                 </Col>
                 <Col sm={3}>Attribute form 
-                {JSON.stringify(state.attributes, null, 2)}
+                <pre>
+                    <code>{JSON.stringify(state.attributes, null, 2)}</code>
+                </pre>
+                
                 </Col>
             </Row>
         </Container >

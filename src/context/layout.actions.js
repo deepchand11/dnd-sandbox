@@ -31,27 +31,28 @@ export const addComponent = (id, item, path) => {
     };
 }
 
-export const updateComponent = (item) => {
+export const updateComponent = (item,path) => {
     return {
         type: "UPDATE_COMPONENT",
         payload: {
-            item
+            item,
+            path
         }
     };
 }
-export const selectComponent = () => {
+export const selectComponent = (id) => {
     return {
         type: "SELECT_COMPONENT",
         payload: {
-            selected: true
+            id
         }
     };
 }
 
-export const deselectComponent = () => {
+export const deselectComponent = (id) => {
     return {
         type: "DESELECT_COMPONENT",
-        payload: {selected: false}
+        payload: {id}
     };
 }
 export const selectedAttributes = (item) => {

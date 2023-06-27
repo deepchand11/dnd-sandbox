@@ -38,15 +38,6 @@ const template = {
                 "x": "0",
                 "y": "0",
             }
-        },
-        "textNewInput": {
-            "_attributes": {
-                "x": "0",
-                "y": "0",
-            },
-            "text": {
-                "_cdata": "Text placeholder"
-            }
         }
     }
 /*
