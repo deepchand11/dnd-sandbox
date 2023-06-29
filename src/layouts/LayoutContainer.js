@@ -11,6 +11,7 @@ import SelectableLayout from '../component/SelectableLayout';
 import AttributeForm from '../component/AttributeForm';
 
 
+
 const LayoutContainer = () => {
     const { state, dispatch } = useLayoutContext();
  
@@ -97,10 +98,9 @@ const LayoutContainer = () => {
                     </div>
                 </Col>
                 <Col sm={3}>
-                {/* <pre>
-                    <code>{JSON.stringify(state.attributes, null, 2)}</code>
-                </pre> */}
-                {state.attributes && <AttributeForm state={state.attributes} path={state.path} formData={state.attributes.type}/>}
+               
+                <AttributeForm state={state.attributes}  formType={state.attributes.type}/>
+                
                 </Col>
             </Row>
         </Container >

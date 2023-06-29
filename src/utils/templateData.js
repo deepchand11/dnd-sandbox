@@ -28,16 +28,23 @@ const template = {
             "_attributes": {
                 "x": "0",
                 "y": "0",
+                "width": 50,
+                "height": 30,
+                "rotate": 0
             },
             "text": {
-                "_cdata": "Text placeholder"
+                "_cdata": "Text"
             }
         },
         "textInput": {
             "_attributes": {
                 "x": "0",
                 "y": "0",
+                "width": 50,
+                "height": 30,
+                "rotate": 0
             }
+
         }
     }
 /*

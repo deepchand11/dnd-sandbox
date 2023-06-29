@@ -2,6 +2,8 @@ import { getByLabelText } from '@testing-library/react';
 import React from 'react'
 import { useDrop } from "react-dnd";
 import { COMPONENT, SIDEBAR_ITEM } from "../utils/constants";
+import template from '../utils/templateData';
+
 
 const ACCEPTS = [SIDEBAR_ITEM, COMPONENT];
 
@@ -18,9 +20,11 @@ const DropZone = ({ data, onDrop, components }) => {
                 
             }else{
                 const canvas = document.querySelector(".droppableCanvas").getBoundingClientRect();
+                const initialTemplate = template[item.component];
                 canvasX = canvas.x;
                 canvasY = canvas.y;
-                itemAttributes = {x:0,y:0}
+                itemAttributes = {...initialTemplate._attributes}
+                
             }
             const {x,y} = itemAttributes;
            
