@@ -31,20 +31,39 @@ export const addComponent = (id, item, path) => {
     };
 }
 
-export const updateComponent = (item,path) => {
+export const updateComponent = (item) => {
     return {
         type: "UPDATE_COMPONENT",
         payload: {
-            item,
-            path
+            item
         }
     };
 }
+
+export const updateAttributes = (comp, item,path) => {
+    return {
+        type: "UPDATE_ATTRIBUTES",
+        payload: {
+            comp,
+            item
+        }
+    };
+}
+
 export const selectComponent = (id) => {
     return {
         type: "SELECT_COMPONENT",
         payload: {
             id
+        }
+    };
+}
+
+export const selectLayout = (index) => {
+    return {
+        type: "SELECT_LAYOUT",
+        payload: {
+            index
         }
     };
 }

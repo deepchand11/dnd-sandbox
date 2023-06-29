@@ -30,7 +30,7 @@ const Draggable = ({children, type, data, ID }) => {
   const [select, setSelect] = useState(false);
   const [{ isDragging }, drag, dragPreview] = useDrag({
     type: COMPONENT,
-    item: { id: data._attributes.ID,type: COMPONENT, component: type },
+    item: { compID: ID, id: data._attributes.ID,type: COMPONENT, component: type },
     collect: (monitor) => ({
         isDragging: monitor.isDragging()
     })

@@ -2,17 +2,7 @@ import template from "../utils/templateData"
 
 function layoutReducer(state, action) {
     switch (action.type) {
-        // case 'ADD_FIELD': {
-        //     const { id, item, path } = action.payload
-        //     const newField = addLayoutReducer(id,item,path,state)
-        //     console.log(newField)
-        //     return newField
-        // }
-        // case 'UPDATE_FIELD': {
-        //     const { id, item, path } = action.payload
-        //    const updatedState =  updateLayoutReducer(id,item,path,state)
-        //     return updatedState
-        // }
+        
         case 'ADD_COMPONENT': {
             const { id, item, path } = action.payload;
             const newComponent = addComponentReducer(id, item, path);
@@ -27,15 +17,31 @@ function layoutReducer(state, action) {
             }
         }
         case 'UPDATE_COMPONENT': {
-            const { item, path } = action.payload
+            const { item } = action.payload
             const upComponent = updateComponentReducer(state, item);
-            const newState = updateToLayoutReducer(item,path,state)
+            const newState = updateToLayoutReducer(upComponent,state)
             return {
                 ...state,
                 ...newState,
                 components: {
                     ...state.components,
-                    [item.id]: upComponent
+                    [item.compID]: upComponent
+                },
+                attributes: {
+                    ...upComponent
+                }
+            }
+        }
+        case 'UPDATE_ATTRIBUTES': {
+            const { comp, item } = action.payload;
+            const upComponent = updateComponentAttributes( comp.id, state, item);
+            const newState = updateToLayoutReducer(upComponent,state);
+            return {
+                ...state,
+                ...newState,
+                components: {
+                    ...state.components,
+                    [comp.id]: upComponent
                 },
                 attributes: {
                     ...upComponent
@@ -90,6 +96,9 @@ function layoutReducer(state, action) {
                 
             }
         }
+        case 'SELECT_LAYOUT': {
+            const { index } = action.payload
+        }
         default: {
             throw new Error(`Unhandled action type: ${action.type}`)
         }
@@ -102,12 +111,17 @@ const addComponentReducer = (id, item, path) => {
     // const newLayoutValues = Object.assign({}, template[item.component]);
     //deep cloning working for nested nodes but function in the object can not be cloned. Use lodash.cloneDeep()
     const newLayoutData = JSON.parse(JSON.stringify(template[item.component]));
+    const newText = newLayoutData.text._cdata || newLayoutData.text
+    
 
     return {
         id,
         path: path,
         type: item.component,
-        attributes: item.attributes,
+        attributes: {
+            ...item.attributes,
+            text: newText
+        },
         selected: false,
         data: {
             ...newLayoutData,
@@ -121,7 +135,8 @@ const addComponentReducer = (id, item, path) => {
 }
 
 const updateComponentReducer = (state, item) => {
-    const uComponent = JSON.parse(JSON.stringify(state.components[item.id]));
+    const uComponent = JSON.parse(JSON.stringify(state.components[item.compID]));
+    const {text, ...newAttributes} = item.attributes
     uComponent.attributes = {
         ...item.attributes
     }
@@ -129,26 +144,31 @@ const updateComponentReducer = (state, item) => {
         ...uComponent.data,
         _attributes: {
             ...uComponent.data._attributes,
-            ...item.attributes
+            ...newAttributes
+        }
+    }
+    return uComponent;
+}
+const updateComponentAttributes = (id, state, item) => {
+    const uComponent = JSON.parse(JSON.stringify(state.components[id]));
+    const {text, ...newAttributes} = item
+    uComponent.attributes = {
+        ...item
+    }
+    if(item.text !== ""){
+        uComponent.data.text._cdata = item.text
+    }
+    uComponent.data = {
+        ...uComponent.data,
+        _attributes: {
+            ...uComponent.data._attributes,
+            ...newAttributes
         }
     }
     return uComponent;
 }
 
-// const addLayoutReducer = (id,item,path,state) => {
-//     const currPath = path.split('-');
-//     let questionLayout = state.layout.homework.homeworkQuestion;
-//     let qlayout = questionLayout[currPath[1]];
-//     const components = state.components;
-//     const fields = qlayout[item.component] || [];
-//     qlayout[item.component]  = [
-//         ...fields,
-//         components[id].data
-//     ];
-    
-//     return state;
 
-// }
 const addToLayoutReducer = (cmp,state) => {
     const {path,type,id} = cmp;
     const currPath = path.split('-');
@@ -165,18 +185,19 @@ const addToLayoutReducer = (cmp,state) => {
 
 }
 
-const updateToLayoutReducer = (item,path,state) => {
-    const currPath = path.split('-');
+const updateToLayoutReducer = (item,state) => {
+    const currPath = item.path.split('-');
     let questionLayout = state.layout.homework.homeworkQuestion;
     let qlayout = questionLayout[currPath[1]];
     const components = state.components;
-    const fields = qlayout[item.component];
+    const fields = qlayout[item.type];
     
-    qlayout[item.component]  = fields.map(field => {
+    qlayout[item.type]  = fields.map(field => {
         if (field._attributes.ID === components[item.id].data._attributes.ID) {
             field._attributes = {
-                ...field._attributes,
-                ...components[item.id].data._attributes
+                // ...field._attributes,
+                // ...components[item.id].data._attributes
+                ...item.data._attributes
             }
         }
         return field
@@ -185,24 +206,3 @@ const updateToLayoutReducer = (item,path,state) => {
     return state;
 
 }
-
-// const updateLayoutReducer = (id,item,path,state) => {
-//     const currPath = path.split('-');
-//     let questionLayout = state.layout.homework.homeworkQuestion;
-//     let qlayout = questionLayout[currPath[1]];
-//     const components = state.components;
-//     const fields = qlayout[item.component];
-    
-//     qlayout[item.component]  = fields.map(field => {
-//         if (field._attributes.ID === components[id].data._attributes.ID) {
-//             field._attributes = {
-//                 ...field._attributes,
-//                 ...components[id].data._attributes
-//             }
-//         }
-//         return field
-//     })
-    
-//     return state;
-
-// }

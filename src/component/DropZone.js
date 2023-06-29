@@ -14,7 +14,7 @@ const DropZone = ({ data, onDrop, components }) => {
             let canvasX = 0 
             let canvasY = 0
             if(item.type === COMPONENT){
-                itemAttributes = JSON.parse(JSON.stringify(components[item.id].attributes))
+                itemAttributes = JSON.parse(JSON.stringify(components[item.compID].attributes))
                 
             }else{
                 const canvas = document.querySelector(".droppableCanvas").getBoundingClientRect();
@@ -39,15 +39,11 @@ const DropZone = ({ data, onDrop, components }) => {
 
         item.attributes = {...itemAttributes}
 
-        // console.log(left, top)
+ 
       onDrop(data, item);
-    //   return false
+ 
         },
-        // canDrop: (item, monitor) => {
-        //     // if(item.attributes && (item.attributes.x < 0 || item.attributes.y < 0)) return false
-        //     console.log('canDrop', item)
-        //     if(item.attributes && (item.attributes.x > 0 || item.attributes.y > 0)) return true;
-        // },
+      
         collect: (monitor) => ({
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop()

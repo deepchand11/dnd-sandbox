@@ -30,8 +30,11 @@ const initialData = {
     },
     components: {
         // component0: { id: "component0", component:'textInput',type: "component", path:'q-0', value: template.textInput },
-        // component1: { id: "component1", component:'textField', type: "component", path:'q-0', value: template.textField }
+        // component1: { id: "component1", component:'', type: "component", path:'q-0', value: template.textField }
     },
+    pages:[
+        
+    ],
     attributes: {},
     selected: false
 };

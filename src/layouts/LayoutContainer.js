@@ -5,15 +5,15 @@ import { COMPONENT, SIDEBAR_ITEM, SIDEBAR_ITEMS } from '../utils/constants';
 import DropZone from '../component/DropZone';
 import SideBarItem from '../component/SideBarItem';
 import { useLayoutContext } from '../context/layout.context';
-import { addComponent, addField, updateComponent, updateField } from '../context/layout.actions';
+import { addComponent, updateComponent } from '../context/layout.actions';
 import CustomTag from '../component/CustomTag';
-import Selectable from '../component/Selectable';
 import SelectableLayout from '../component/SelectableLayout';
+import AttributeForm from '../component/AttributeForm';
 
 
 const LayoutContainer = () => {
     const { state, dispatch } = useLayoutContext();
-    console.log(state)
+ 
     const layout = state.layout.homework.homeworkQuestion;
     const components = state.components;
     // const selectedAttributes = state.attributes;
@@ -31,7 +31,7 @@ const LayoutContainer = () => {
             }
             if (item.type === COMPONENT) {
                 
-                dispatch(updateComponent(item, dropZone.path))
+                dispatch(updateComponent(item))
                 
                 
             }
@@ -96,11 +96,11 @@ const LayoutContainer = () => {
                         </Tabs>
                     </div>
                 </Col>
-                <Col sm={3}>Attribute form 
-                <pre>
+                <Col sm={3}>
+                {/* <pre>
                     <code>{JSON.stringify(state.attributes, null, 2)}</code>
-                </pre>
-                
+                </pre> */}
+                {state.attributes && <AttributeForm state={state.attributes} path={state.path} formData={state.attributes.type}/>}
                 </Col>
             </Row>
         </Container >
