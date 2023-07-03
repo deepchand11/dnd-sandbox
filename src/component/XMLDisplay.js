@@ -26,7 +26,7 @@ const XMLDisplay = () => {
             <Card.Header>XML View</Card.Header>
             <Card.Body>
                 <Card.Text>
-                <XMLViewer xml={xml} theme={customTheme} collapsible />
+                {xml && <XMLViewer xml={xml} theme={customTheme} collapsible />}
                 </Card.Text>
 
             </Card.Body>

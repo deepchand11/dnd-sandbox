@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import textFieldData from './data';
-import { useLayoutContext } from '../../../context/layout.context';
 import { valueDataType } from '../../../utils/common';
-import { updateAttributes } from '../../../context/layout.actions';
-import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -12,11 +9,8 @@ import CustomInput from '../../inputs/CustomInput';
 
 
 
-const TextFieldForm = ({ state }) => {
-    const [form, setForm] = useState(null);
+const TextFieldForm = ({ state,form, setForm }) => {
 
-
-    const { dispatch } = useLayoutContext();
 
 
     useEffect(() => {
@@ -43,10 +37,6 @@ const TextFieldForm = ({ state }) => {
 
     };
 
-    const handleUpdate = () => {
-
-        dispatch(updateAttributes(state, form))
-    }
 
     return (
         <>
@@ -57,9 +47,6 @@ const TextFieldForm = ({ state }) => {
                             <CustomInput form={form} field={f} handleChange={handleChange}/>
                         </Col>
                     ))}
-                    <Col lg={12}>
-                        <Button onClick={handleUpdate} variant="primary" type="button">Update</Button>
-                    </Col>
                 </Row>
             </Form>
         </>
