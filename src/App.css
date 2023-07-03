@@ -29,9 +29,13 @@ body,html {
   cursor: move;
 }
 .canvas {
-  border: 1px solid #ccc;
+  
   height: 100%;
   position: relative;
+}
+.grid-canvas {
+  border: 1px solid #dee2e6;
+  border-top:0px;
 }
 
 .gridline {
@@ -234,5 +238,56 @@ small {
   position: relative;
 }
 .tab-content,.tab-pane{
-  height:100%
+  height:480px
+}
+.attrWrap {
+  
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100vh;
+}
+.attrHeader {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.attrHeader h5 {
+  font-weight: 700;
+}
+.attrBody {
+  flex: 1 1 auto;
+  background-color: #fff;
+  padding: 10px;
+}
+.attrFooter {
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.textField {
+  border: 1px solid #333;
+  background-color: #fff;
+  position: absolute;
+top:0;
+bottom:0;
+left:0;
+right:0;
+}
+.selectable-comp {
+position: absolute;
+top:0;
+bottom:0;
+left:0;
+right:0;
+}
+
+.xml-viewer {
+  height: 38vh
+}
+.xml-viewer .card-body{
+  overflow: auto;
+  font-size: 12px;;
 }

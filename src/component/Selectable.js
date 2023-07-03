@@ -28,7 +28,7 @@ const Selectable = ({ children, locking,comp, data,ID, ...props }) => {
 
 
   return (
-    <div className={`selectable ${selectComp.selected ? "active" : ""}`}  {...props} onClick={handleClick}>
+    <div className={`selectable selectable-comp ${selectComp.selected ? "active" : ""}`}  {...props} onClick={handleClick}>
       {children}
       
     </div>

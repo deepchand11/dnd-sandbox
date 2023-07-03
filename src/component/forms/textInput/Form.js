@@ -8,11 +8,10 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import CustomInput from '../../inputs/CustomInput';
 
 
 
-const TextFieldForm = ({ state }) => {
+const TextInputForm = ({ state }) => {
     const [form, setForm] = useState(null);
 
 
@@ -54,7 +53,10 @@ const TextFieldForm = ({ state }) => {
                 <Row>
                     {textFieldData.map((f, i) => (
                         <Col xs={12} md={6} lg={6} key={`textField${i}`}>
-                            <CustomInput form={form} field={f} handleChange={handleChange}/>
+                            <Form.Group className="mb-3" controlId={f.name}>
+                                <Form.Label>{f.label}</Form.Label>
+                                <Form.Control name={f.name} size="sm" type={f.type} placeholder={f.placeholder} value={form ? form[f.name] : ''} onChange={handleChange} />
+                            </Form.Group>
                         </Col>
                     ))}
                     <Col lg={12}>
@@ -66,4 +68,4 @@ const TextFieldForm = ({ state }) => {
     )
 }
 
-export default TextFieldForm
+export default TextInputForm

@@ -57,7 +57,7 @@ const DropZone = ({ data, onDrop, components }) => {
     const styleBg ={ backgroundColor: isActive ? '#f3f3f3':'white' }
     return (
         <div
-            className='canvas gridline'
+            className='grid-canvas canvas gridline'
             ref={drop}
             role={"Canvas Drop"}
             style={styleBg}

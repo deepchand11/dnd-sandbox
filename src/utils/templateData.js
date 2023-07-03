@@ -40,9 +40,21 @@ const template = {
             "_attributes": {
                 "x": "0",
                 "y": "0",
-                "width": 50,
-                "height": 30,
-                "rotate": 0
+                "width": 60,
+                "height": 23,
+                "cssstyle": "",
+                "strokecolour": "0xCCCCCC",
+                "strokeweight": 0,
+                "padding": 0,
+                "paddingleft": 0,
+                "restrict": "0-9\\.",
+                "maxcharacters": 5,
+                "autofocus": "autofocus",
+                "tick": true,
+                "answer": true,
+                "answerstyle": "inputTextAnswerLeft",
+                "tickpositionx": 0,
+                "tickpositiony": 0
             }
 
         }

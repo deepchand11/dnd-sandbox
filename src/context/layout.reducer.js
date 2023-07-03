@@ -111,7 +111,11 @@ const addComponentReducer = (id, item, path) => {
     // const newLayoutValues = Object.assign({}, template[item.component]);
     //deep cloning working for nested nodes but function in the object can not be cloned. Use lodash.cloneDeep()
     const newLayoutData = JSON.parse(JSON.stringify(template[item.component]));
-    const newText = newLayoutData.text._cdata || newLayoutData.text
+    let newText = ""
+    if(item.component === 'textField') {
+        newText = newLayoutData.text._cdata || newLayoutData.text
+    }
+   
     
 
     return {
@@ -194,6 +198,11 @@ const updateToLayoutReducer = (item,state) => {
     
     qlayout[item.type]  = fields.map(field => {
         if (field._attributes.ID === components[item.id].data._attributes.ID) {
+            if(item.data.text) {
+                field.text = {
+                    ...item.data.text
+                } 
+            }
             field._attributes = {
                 // ...field._attributes,
                 // ...components[item.id].data._attributes

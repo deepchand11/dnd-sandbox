@@ -9,6 +9,8 @@ import { addComponent, updateComponent } from '../context/layout.actions';
 import CustomTag from '../component/CustomTag';
 import SelectableLayout from '../component/SelectableLayout';
 import AttributeForm from '../component/AttributeForm';
+import XMLViewer from '../component/XMLDisplay';
+import XMLDisplay from '../component/XMLDisplay';
 
 
 
@@ -17,6 +19,7 @@ const LayoutContainer = () => {
  
     const layout = state.layout.homework.homeworkQuestion;
     const components = state.components;
+    console.log(state.layout)
     // const selectedAttributes = state.attributes;
     const handleDrop = useCallback(
         (dropZone, item) => {
@@ -73,7 +76,7 @@ const LayoutContainer = () => {
                         <Tabs
                             defaultActiveKey="Q1"
                             id="uncontrolled-tab-example"
-                            className="mb-3"
+                            className=""
                         >
                             {layout.map((q, index) => {
                                 const currentPath = `q-${index}`;
@@ -95,9 +98,10 @@ const LayoutContainer = () => {
 
                             })}
                         </Tabs>
+                        <XMLDisplay/>
                     </div>
                 </Col>
-                <Col sm={3}>
+                <Col sm={3} className="bg-light">
                
                 <AttributeForm state={state.attributes}  formType={state.attributes.type}/>
                 

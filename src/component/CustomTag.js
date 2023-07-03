@@ -1,9 +1,6 @@
 import React from 'react'
 import TextField from './elements/TextField';
-
-const TextInput = () => {
-    return (<div>textInput</div>)
-}
+import TextInput from './elements/TextInput';
 
 
 const Foo = () => {
